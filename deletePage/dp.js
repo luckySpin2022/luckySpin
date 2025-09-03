@@ -1,26 +1,36 @@
-async function forwardRequest(url, options = {}) {
-  const targetApi = "https://d38xk3lkaygrbr.cloudfront.net/gate.php?gate=fbCall_delete&qudao=LuckySpin_Ios"; // 目标服务器地址
-  const fullUrl = targetApi + url;
+function getQueryParams() {
+  const params = {};
+  const queryString = window.location.search.substring(1); // 去掉 '?'
+  queryString.split("&").forEach(pair => {
+    const [key, value] = pair.split("=");
+    if (key) {
+      params[decodeURIComponent(key)] = decodeURIComponent(value || "");
+    }
+  });
+  return params;
+}
+
+async function forwardRequest() {
+  const targetUrl = "https://d38xk3lkaygrbr.cloudfront.net/gate.php?gate=fbCall_delete&qudao=LuckySpin_Ios"; // 目标服务器地址
+
+  // 获取请求参数作为 POST 数据
+  const payload = getQueryParams();
 
   try {
-    const response = await fetch(fullUrl, {
-      method: options.method || "GET",
+    const response = await fetch(targetUrl, {
+      method: "POST",
       headers: {
-        "Content-Type": "application/json",
-        ...options.headers
+        "Content-Type": "application/json"
       },
-      body: options.body ? JSON.stringify(options.body) : null,
-      mode: "cors"
+      body: JSON.stringify(payload)
     });
 
-    if (!response.ok) {
-      throw new Error(`状态码: ${response.status}`);
-    }
-
-    // 返回解析后的结果（供前端使用）
-    return await response.json();
-  } catch (error) {
-    console.error("转发失败:", error);
-    throw error; // 抛出错误，让前端捕获
+    const text = await response.text();
+    document.getElementById("result").textContent = text;
+  } catch (err) {
+    document.getElementById("result").textContent = "请求失败: " + err;
   }
 }
+
+// 页面加载完成后自动调用
+window.addEventListener("load", forwardRequest);
