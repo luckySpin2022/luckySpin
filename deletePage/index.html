@@ -1,37 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-  <title>GitHub Pages 请求转发</title>
-  <style>
-    body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
-    #result { margin-top: 20px; padding: 10px; border: 1px solid #ddd; border-radius: 4px; }
-    .error { color: #dc3545; }
-  </style>
+  <meta charset="UTF-8">
+  <title>请求转发测试</title>
 </head>
 <body>
-  <h1>API 请求转发测试</h1>
-  <button onclick="fetchData()">发送请求</button>
-  <div id="result"></div>
+  <h1>请求转发 Demo</h1>
+  <pre id="result"></pre>
 
-  <!-- 引用转发逻辑的 JS 文件 -->
-  <script src="dp.js"></script>
-  <script>
-    // 点击按钮时触发请求
-    function fetchData() {
-      const resultElement = document.getElementById("result");
-      resultElement.textContent = "请求中...";
-
-      // 调用 forward.js 中的函数，处理返回结果
-      forwardRequest("", { method: "GET" })
-        .then(data => {
-          resultElement.textContent = "请求成功:\n" + JSON.stringify(data, null, 2);
-          resultElement.classList.remove("error");
-        })
-        .catch(error => {
-          resultElement.textContent = "请求失败:\n" + error.message;
-          resultElement.classList.add("error");
-        });
-    }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
