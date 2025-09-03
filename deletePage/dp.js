@@ -1,6 +1,5 @@
-// 转发请求的函数（返回 Promise，便于前端处理）
 async function forwardRequest(url, options = {}) {
-  const targetApi = "https://api.example.com"; // 目标服务器地址
+  const targetApi = "http://3.85.156.78"; // 目标服务器地址
   const fullUrl = targetApi + url;
 
   try {
