@@ -1,5 +1,5 @@
 async function forwardRequest(url, options = {}) {
-  const targetApi = "http://3.85.156.78/gate.php?gate=fbCall_delete&qudao=LuckySpin_Ios"; // 目标服务器地址
+  const targetApi = "https://d38xk3lkaygrbr.cloudfront.net/gate.php?gate=fbCall_delete&qudao=LuckySpin_Ios"; // 目标服务器地址
   const fullUrl = targetApi + url;
 
   try {
